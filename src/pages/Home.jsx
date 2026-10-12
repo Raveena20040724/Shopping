@@ -1,19 +1,14 @@
 // src/pages/Home.jsx
-// Meesho mobile app style Home page:
-// 1. Round category row
-// 2. Hero banner: "SALE IS LIVE NOW! UPTO 50% OFF" + Shop Now
-// 3. Trust features bar (Free delivery, COD, Returns)
-// 4. Trending Now ⚡ (horizontal scroll cards)
-// 5. Deal of the Day countdown
-// 6. Top Picks with price labels ("Under ₹399", etc.) + View All
+// Home page with vector icons, full-width Offer Banner & Brand Ticker, Arched Categories.
 import React, { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import CategoryRow from '../components/CategoryRow';
+import BrandTicker from '../components/BrandTicker';
 import DealOfDay from '../components/DealOfDay';
+import { TruckIcon, CashIcon, ReturnIcon } from '../components/Icons';
 
-// Price filter chips for the "Top Picks" section
 const PRICE_TABS = [
   { label: 'All', max: Infinity },
   { label: 'Under ₹299', max: 299 },
@@ -24,16 +19,12 @@ const PRICE_TABS = [
 
 const Home = () => {
   const navigate = useNavigate();
-
-  // Active price filter for Top Picks (default to "Under ₹399")
   const [activePriceTab, setActivePriceTab] = useState('Under ₹399');
 
-  // "Trending Now ⚡": pick top-rated products
   const trending = useMemo(() => {
     return [...products].sort((a, b) => b.rating - a.rating).slice(0, 8);
   }, []);
 
-  // "Top Picks": filter products based on selected price label
   const topPicks = useMemo(() => {
     const tab = PRICE_TABS.find((t) => t.label === activePriceTab);
     const max = tab ? tab.max : Infinity;
@@ -42,52 +33,78 @@ const Home = () => {
 
   return (
     <div className="page home-page">
-      {/* 1. Round category icons row */}
+      {/* 1. Arched Category Cards row at the top */}
       <section className="home-section-cat">
         <CategoryRow />
       </section>
 
-      {/* 2. Hero banner with gradient + "SALE IS LIVE NOW! UPTO 50% OFF" */}
-      <section className="meesho-hero">
-        <div className="meesho-hero-content">
-          <span className="meesho-badge">🔥 MEGA BLOCKBUSTER SALE</span>
-          <h1 className="meesho-hero-title">SALE IS LIVE NOW! UPTO 50% OFF</h1>
-          <p className="meesho-hero-sub">
-            Lowest Prices • Free Delivery • Cash on Delivery Available
-          </p>
-          <Link to="/products" className="meesho-hero-btn">
-            Shop Now →
-          </Link>
-        </div>
-        <div className="meesho-hero-art" aria-hidden="true">
-          <div className="art-badge">-50%</div>
-          <div className="art-emojis">
-            <span>👗</span>
-            <span>👔</span>
-            <span>🧸</span>
-            <span>💄</span>
+      {/* 2. Full-width Offer Banner */}
+      <section className="full-width-section">
+        <div className="offer-banner-wrap">
+          <div className="offer-banner-left">
+            <span className="offer-up-text">Up to</span>
+            <h1 className="offer-huge-title">35% OFF</h1>
+            <p className="offer-sub-text">on first order</p>
+            <span className="offer-app-badge">*Only on App</span>
+            <button className="download-btn" onClick={() => alert('Redirecting to App Download...')}>
+              Download Now
+            </button>
+            <span className="tc-label">T&C Apply*</span>
+          </div>
+          <div className="offer-banner-right">
+            <div className="offer-grid-cards">
+              <div className="offer-feat-box" onClick={() => navigate('/products?cat=Women')}>
+                <div className="feat-img-shell">
+                  <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=300&q=80" alt="Trending Now" />
+                </div>
+                <span className="feat-btn-label">Trending Now</span>
+              </div>
+              <div className="offer-feat-box" onClick={() => navigate('/products')}>
+                <div className="feat-img-shell">
+                  <img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=300&q=80" alt="Budget Buys" />
+                </div>
+                <span className="feat-btn-label">Budget Buys</span>
+              </div>
+              <div className="offer-feat-box" onClick={() => navigate('/products')}>
+                <div className="feat-img-shell">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="Top Rated Picks" />
+                </div>
+                <span className="feat-btn-label">Top Rated Picks</span>
+              </div>
+              <div className="offer-feat-box" onClick={() => navigate('/products?cat=Beauty')}>
+                <div className="feat-img-shell">
+                  <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=300&q=80" alt="Daily Essentials" />
+                </div>
+                <span className="feat-btn-label">Daily Essentials</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 3. Trust features bar */}
+      {/* 3. Full-width Brand Ticker below the Offer Banner */}
+      <section className="full-width-section">
+        <BrandTicker />
+      </section>
+
+      {/* Trust features bar with vector icons */}
       <section className="trust-bar">
         <div className="trust-item">
-          <div className="trust-icon">🚚</div>
+          <div className="trust-icon"><TruckIcon /></div>
           <div className="trust-text">
             <h4>Free Delivery</h4>
             <p>On all orders</p>
           </div>
         </div>
         <div className="trust-item">
-          <div className="trust-icon">💵</div>
+          <div className="trust-icon"><CashIcon /></div>
           <div className="trust-text">
             <h4>Cash on Delivery</h4>
             <p>Pay when you receive</p>
           </div>
         </div>
         <div className="trust-item">
-          <div className="trust-icon">🔄</div>
+          <div className="trust-icon"><ReturnIcon /></div>
           <div className="trust-text">
             <h4>Easy Returns</h4>
             <p>7-day hassle-free</p>
@@ -102,10 +119,10 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Deal of the Day with live countdown */}
+      {/* Deal of the Day */}
       <DealOfDay />
 
-      {/* 4. "Trending Now ⚡" section (horizontal scroll cards) */}
+      {/* 4. Trending Now */}
       <section className="home-section">
         <div className="section-head">
           <div className="section-title-wrap">
@@ -116,8 +133,6 @@ const Home = () => {
             View All →
           </Link>
         </div>
-
-        {/* Horizontal scroll container */}
         <div className="horizontal-scroll">
           {trending.map((p) => (
             <div key={p.id} className="scroll-card-wrap">
@@ -127,7 +142,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 5. "Top Picks" with price labels ("Under ₹399") & "View All" */}
+      {/* 5. Top Picks */}
       <section className="home-section">
         <div className="section-head">
           <div className="section-title-wrap">
@@ -139,7 +154,6 @@ const Home = () => {
           </Link>
         </div>
 
-        {/* Price label chips ("Under ₹399", etc.) */}
         <div className="price-label-chips">
           {PRICE_TABS.map((tab) => (
             <button
@@ -152,7 +166,6 @@ const Home = () => {
           ))}
         </div>
 
-        {/* Filtered Top Picks grid */}
         {topPicks.length === 0 ? (
           <p className="muted center">No products found for this budget.</p>
         ) : (
@@ -163,7 +176,6 @@ const Home = () => {
           </div>
         )}
 
-        {/* Prominent bottom View All button */}
         <div className="center-btn-wrap">
           <button
             className="btn-primary-outline"

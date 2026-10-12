@@ -1,11 +1,12 @@
 // src/components/Navbar.jsx
-// Top bar: announcement ticker, logo, search, wishlist + cart icons with counts.
+// Top bar: announcement ticker, logo, visual search, wishlist + cart vector icons, sign in / profile button.
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { CameraIcon, CartIcon, HeartIcon, UserIcon } from './Icons';
 
 const Navbar = () => {
-  const { cartCount, wishlist } = useCart();
+  const { cartCount, wishlist, user, showToast } = useCart();
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -45,21 +46,28 @@ const Navbar = () => {
     navigate(query.trim() ? `/products?q=${encodeURIComponent(query.trim())}` : '/products');
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      showToast('Visual Search: Analyzing image & matching products... 🔍');
+      setTimeout(() => {
+        navigate('/products?visualSearch=true');
+      }, 1200);
+    }
+  };
+
   return (
     <>
-      {/* Top professional announcement ticker */}
       <div className="announcement-bar">
         ⚡ Lowest Prices • Free Delivery • Cash on Delivery Available • 7-Day Easy Returns
       </div>
 
       <nav className="navbar">
         <div className="navbar-inner">
-          {/* Logo */}
           <Link to="/" className="logo">
             <span className="logo-icon">S</span> ShopEasy
           </Link>
 
-          {/* Search bar */}
           <form className="search-bar" onSubmit={onSearch}>
             <input
               type="text"
@@ -67,24 +75,38 @@ const Navbar = () => {
               value={query}
               onChange={handleChange}
             />
+            <label className="camera-btn" title="Search by image upload">
+              <CameraIcon />
+              <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
+            </label>
             <button type="submit">Search</button>
           </form>
 
-          {/* Icons */}
           <div className="nav-icons">
             <Link to="/products" className="nav-link">
               Explore
             </Link>
             <Link to="/wishlist" className="icon-btn" title="Wishlist">
-              ♥<span className="badge">{wishlist.length}</span>
+              <HeartIcon filled={wishlist.length > 0} />
+              <span className="badge">{wishlist.length}</span>
             </Link>
             <Link to="/cart" className="icon-btn" title="Cart">
-              🛒<span className="badge">{cartCount}</span>
+              <CartIcon />
+              <span className="badge">{cartCount}</span>
             </Link>
+
+            {user ? (
+              <Link to="/profile" className="icon-btn profile-btn" title="My Profile" style={{ background: '#f3e8ff', display: 'flex', gap: '6px', alignItems: 'center', padding: '8px 12px', fontSize: '14px', fontWeight: '800' }}>
+                <UserIcon /> <span>{user.name.split(' ')[0]}</span>
+              </Link>
+            ) : (
+              <Link to="/signin" className="btn-primary" style={{ padding: '9px 18px', fontSize: '13px', borderRadius: '20px', whiteSpace: 'nowrap' }}>
+                Sign In
+              </Link>
+            )}
           </div>
         </div>
 
-        {/* Mobile search row */}
         <form className="search-bar mobile-only" onSubmit={onSearch}>
           <input
             type="text"

@@ -12,7 +12,10 @@ const Success = () => {
         <h2>Order Placed!</h2>
         <p>Order ID: <b>{orderId}</b></p>
         <p className="muted">This is a demo — no real payment was taken.</p>
-        <Link to="/products" className="btn-primary">Continue Shopping</Link>
+        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '20px', flexWrap: 'wrap' }}>
+          <Link to="/" className="btn-primary">Back to Home</Link>
+          <Link to="/products" className="btn-secondary">Continue Shopping</Link>
+        </div>
       </div>
     </div>
   );

@@ -38,7 +38,7 @@ export const products = [
     price: 499,
     oldPrice: 799,
     rating: 4.3,
-    image: "https://images.unsplash.com/photo-1625910513418-5c234a2e88a3?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80",
     sizes: ["S", "M", "L", "XL"]
   },
   {
@@ -128,7 +128,7 @@ export const products = [
     price: 199,
     oldPrice: 299,
     rating: 4.8,
-    image: "https://images.unsplash.com/photo-153351468697ef-034c16a2ef04?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=600&q=80",
     sizes: ["S", "M", "L"]
   },
   {
@@ -148,7 +148,7 @@ export const products = [
     price: 249,
     oldPrice: 399,
     rating: 4.2,
-    image: "https://images.unsplash.com/photo-1608248597359-f538cb8876c2?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80",
     sizes: ["200ml"]
   },
   {
@@ -178,7 +178,7 @@ export const products = [
     price: 379,
     oldPrice: 599,
     rating: 4.5,
-    image: "https://images.unsplash.com/photo-1503944583220-74979e29e0b7?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=600&q=80",
     sizes: ["S", "M", "L"]
   },
   {

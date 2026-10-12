@@ -13,6 +13,7 @@ const Wishlist = () => {
   if (items.length === 0) {
     return (
       <div className="page center">
+        <Link to="/" className="back-home-btn" style={{ display: 'inline-flex', marginBottom: '20px' }}>← Back to Home</Link>
         <h2>No wishlist items yet ♡</h2>
         <Link to="/products" className="btn-primary">Discover Products</Link>
       </div>
@@ -21,6 +22,7 @@ const Wishlist = () => {
 
   return (
     <div className="page">
+      <Link to="/" className="back-home-btn">← Back to Home</Link>
       <h2>My Wishlist ({items.length})</h2>
       <div className="grid">
         {items.map((p) => <ProductCard key={p.id} product={p} />)}

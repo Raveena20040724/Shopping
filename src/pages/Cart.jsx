@@ -21,6 +21,7 @@ const Cart = () => {
   if (lines.length === 0) {
     return (
       <div className="page center">
+        <Link to="/" className="back-home-btn" style={{ display: 'inline-flex', marginBottom: '20px' }}>← Back to Home</Link>
         <h2>Your cart is empty 🛒</h2>
         <Link to="/products" className="btn-primary">Browse Products</Link>
       </div>
@@ -29,6 +30,7 @@ const Cart = () => {
 
   return (
     <div className="page">
+      <Link to="/" className="back-home-btn">← Back to Home</Link>
       <h2>Cart ({lines.length} items)</h2>
       <div className="cart-layout">
         {/* Items */}

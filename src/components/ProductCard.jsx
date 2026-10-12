@@ -1,5 +1,5 @@
 // src/components/ProductCard.jsx
-// Redesigned ProductCard with strict 3/4 portrait aspect ratio and robust fallback.
+// Redesigned ProductCard with strict 3/4 portrait aspect ratio, Mall badge, reviews, and robust fallback.
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
@@ -13,6 +13,9 @@ const ProductCard = ({ product }) => {
   const discount = product.oldPrice
     ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
     : 0;
+
+  // Realistic review count based on id
+  const reviewsCount = (product.id * 14321 + 842) % 300000 + 5000;
 
   return (
     <div className="product-card">
@@ -43,9 +46,12 @@ const ProductCard = ({ product }) => {
       </div>
 
       <div className="product-info">
-        <Link to={`/products/${product.id}`} className="product-name">
-          {product.name}
-        </Link>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '4px' }}>
+          <Link to={`/products/${product.id}`} className="product-name" style={{ flex: 1 }}>
+            {product.name}
+          </Link>
+          <span className="mall-tag">Mall</span>
+        </div>
         <p className="product-cat">{product.category}</p>
 
         <div className="price-row">
@@ -58,8 +64,9 @@ const ProductCard = ({ product }) => {
           )}
         </div>
 
-        <div className="rating-pill-row">
+        <div className="rating-pill-row" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="rating-pill">★ {product.rating}</span>
+          <span className="reviews-count">{reviewsCount.toLocaleString()} Reviews</span>
         </div>
       </div>
     </div>

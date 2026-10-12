@@ -1,42 +1,41 @@
 // src/components/CategoryRow.jsx
-// Round category icons row styled like the Meesho mobile app.
+// Arched category cards row with All, Women, Men, Kids, Beauty.
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Category items with emoji and matching colors
 const CATS = [
-  { name: 'All', emoji: '🛍️' },
-  { name: 'Women', emoji: '👗' },
-  { name: 'Men', emoji: '👔' },
-  { name: 'Kids', emoji: '🧸' },
-  { name: 'Home', emoji: '🏠' },
-  { name: 'Beauty', emoji: '💄' },
+  { name: 'All', image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=400&q=80', query: 'All' },
+  { name: 'Women', image: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=400&q=80', query: 'Women' },
+  { name: 'Men', image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=400&q=80', query: 'Men' },
+  { name: 'Kids', image: 'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=400&q=80', query: 'Kids' },
+  { name: 'Beauty', image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80', query: 'Beauty' },
 ];
 
 const CategoryRow = () => {
   const navigate = useNavigate();
 
-  // Navigate to products with category filter
-  const handleClick = (name) => {
-    if (name === 'All') {
+  const handleClick = (cat) => {
+    if (cat.query === 'All') {
       navigate('/products');
     } else {
-      navigate(`/products?cat=${encodeURIComponent(name)}`);
+      navigate(`/products?cat=${encodeURIComponent(cat.query)}`);
     }
   };
 
   return (
-    <div className="cat-row-wrap">
-      <div className="cat-row">
+    <div className="arched-cat-wrap">
+      <div className="arched-cat-row">
         {CATS.map((c) => (
           <button
             key={c.name}
-            className="cat-item"
-            onClick={() => handleClick(c.name)}
+            className="arched-cat-item"
+            onClick={() => handleClick(c)}
             title={`Shop ${c.name}`}
           >
-            <span className="cat-circle">{c.emoji}</span>
-            <span className="cat-name">{c.name}</span>
+            <div className="arched-card">
+              <img src={c.image} alt={c.name} className="arched-img" />
+            </div>
+            <span className="arched-name">{c.name}</span>
           </button>
         ))}
       </div>

@@ -28,7 +28,7 @@ const ProductDetails = () => {
 
   return (
     <div className="page">
-      <Link to="/products">← Back to Products</Link>
+      <Link to="/products" className="back-home-btn">← Back to Products</Link>
       <div className="details-wrap">
         {/* Exact product photo side */}
         <div className="details-img">

@@ -18,7 +18,6 @@ const DealOfDay = () => {
   const deal = [...products].sort(
     (a, b) => (b.oldPrice - b.price) - (a.oldPrice - a.price)
   )[0];
-  const meta = categoryStyle[deal.category] || {};
   const { addToCart } = useCart();
   const [left, setLeft] = useState(secondsToMidnight());
 
@@ -53,8 +52,8 @@ const DealOfDay = () => {
           </Link>
         </div>
       </div>
-      <div className="deal-emoji" style={{ background: deal.bg || meta.bg }}>
-        {deal.emoji || meta.emoji}
+      <div className="deal-img-box">
+        <img src={deal.image} alt={deal.name} className="deal-portrait-img" />
       </div>
     </section>
   );

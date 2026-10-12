@@ -1,12 +1,11 @@
 // src/pages/Checkout.jsx
-// Address form + payment UI only + Place Order.
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
 
 const Checkout = () => {
-  const { cart, clearCart } = useCart();
+  const { cart, clearCart, addOrder } = useCart();
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', phone: '', address: '', city: '', pincode: '' });
   const [pay, setPay] = useState('COD');
@@ -18,13 +17,20 @@ const Checkout = () => {
 
   const placeOrder = (e) => {
     e.preventDefault();
-    // Simple validation
     if (!form.name || !form.phone || !form.address) {
       alert('Please fill name, phone and address.');
       return;
     }
-    // Clear cart, save fake order id, go to success
     const orderId = 'SE' + Math.floor(100000 + Math.random() * 900000);
+    const newOrder = {
+      id: orderId,
+      date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+      items: lines.map((l) => ({ name: l.product.name, price: l.product.price, qty: l.qty, size: l.size, image: l.product.image })),
+      total,
+      payment: pay,
+      status: 'Out for Delivery 🚚'
+    };
+    addOrder(newOrder);
     localStorage.setItem('shopeasy-last-order', orderId);
     clearCart();
     navigate('/success');
@@ -34,6 +40,7 @@ const Checkout = () => {
 
   return (
     <div className="page">
+      <Link to="/" className="back-home-btn">← Back to Home</Link>
       <h2>Checkout</h2>
       <form className="checkout-layout" onSubmit={placeOrder}>
         {/* Address */}
@@ -47,7 +54,7 @@ const Checkout = () => {
             <input className="input" placeholder="Pincode" value={form.pincode} onChange={set('pincode')} />
           </div>
 
-          <h3>Payment (demo only)</h3>
+          <h3>Payment method</h3>
           {['COD', 'UPI', 'Card'].map((m) => (
             <label key={m} className="pay-opt">
               <input type="radio" checked={pay === m} onChange={() => setPay(m)} />
