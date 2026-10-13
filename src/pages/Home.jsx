@@ -7,7 +7,7 @@ import ProductCard from '../components/ProductCard';
 import CategoryRow from '../components/CategoryRow';
 import BrandTicker from '../components/BrandTicker';
 import DealOfDay from '../components/DealOfDay';
-import { TruckIcon, CashIcon, ReturnIcon } from '../components/Icons';
+import { TruckIcon, CashIcon, ReturnIcon, SparkleIcon } from '../components/Icons';
 
 const PRICE_TABS = [
   { label: 'All', max: Infinity },
@@ -111,7 +111,7 @@ const Home = () => {
           </div>
         </div>
         <div className="trust-item">
-          <div className="trust-icon">✨</div>
+          <div className="trust-icon"><SparkleIcon /></div>
           <div className="trust-text">
             <h4>Lowest Prices</h4>
             <p>Direct manufacturer rates</p>
@@ -146,7 +146,7 @@ const Home = () => {
       <section className="home-section">
         <div className="section-head">
           <div className="section-title-wrap">
-            <h2>Top Picks ✨</h2>
+            <h2>Top Picks <SparkleIcon /></h2>
             <span className="section-subtitle">Budget-friendly deals curated for you</span>
           </div>
           <Link to="/products" className="btn-view-all">

@@ -67,29 +67,32 @@ const Navbar = () => {
           <Link to="/" className="logo">
             <span className="logo-icon">S</span> ShopEasy
           </Link>
-
           <form className="search-bar" onSubmit={onSearch}>
-            <input
-              type="text"
-              placeholder="Search kurtis, sarees, shirts, home decor..."
-              value={query}
-              onChange={handleChange}
-            />
-            <label className="camera-btn" title="Search by image upload">
-              <CameraIcon />
-              <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
-            </label>
+            <div className="search-input-wrapper">
+              <input
+                type="text"
+                placeholder="Search kurtis, sarees, shirts, home decor..."
+                value={query}
+                onChange={handleChange}
+              />
+              <label className="camera-btn-inside" title="Search by image upload">
+                <CameraIcon />
+                <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
+              </label>
+            </div>
             <button type="submit">Search</button>
           </form>
 
           <div className="nav-icons">
-            <Link to="/products" className="nav-link">
+            <Link to="/products" className="nav-link desktop-only" style={{ fontWeight: '800', color: '#1a0826', fontSize: '15px' }}>
               Explore
             </Link>
-            <Link to="/wishlist" className="icon-btn" title="Wishlist">
-              <HeartIcon filled={wishlist.length > 0} />
+
+            <Link to="/wishlist" className="icon-btn desktop-only" title="Wishlist">
+              <HeartIcon />
               <span className="badge">{wishlist.length}</span>
             </Link>
+
             <Link to="/cart" className="icon-btn" title="Cart">
               <CartIcon />
               <span className="badge">{cartCount}</span>
@@ -100,7 +103,7 @@ const Navbar = () => {
                 <UserIcon /> <span>{user.name.split(' ')[0]}</span>
               </Link>
             ) : (
-              <Link to="/signin" className="btn-primary" style={{ padding: '9px 18px', fontSize: '13px', borderRadius: '20px', whiteSpace: 'nowrap' }}>
+              <Link to="/signin" className="btn-primary sign-in-btn" style={{ padding: '10px 22px', fontSize: '14px', borderRadius: '30px', whiteSpace: 'nowrap', fontWeight: '800' }}>
                 Sign In
               </Link>
             )}
@@ -108,12 +111,18 @@ const Navbar = () => {
         </div>
 
         <form className="search-bar mobile-only" onSubmit={onSearch}>
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={query}
-            onChange={handleChange}
-          />
+          <div className="search-input-wrapper">
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={query}
+              onChange={handleChange}
+            />
+            <label className="camera-btn-inside" title="Search by image upload">
+              <CameraIcon />
+              <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
+            </label>
+          </div>
           <button type="submit">Go</button>
         </form>
       </nav>

@@ -16,6 +16,7 @@ const Products = () => {
   const [category, setCategory] = useState(params.get('cat') || 'All');
   const [maxPrice, setMaxPrice] = useState(999);
   const [sort, setSort] = useState('popular');
+  const [isSortOpen, setIsSortOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState('All');
   const [selectedFabric, setSelectedFabric] = useState('All');
   const [selectedSize, setSelectedSize] = useState('All');
@@ -179,12 +180,45 @@ const Products = () => {
             </span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <span className="muted" style={{ fontSize: '13px', fontWeight: 800 }}>Sort by :</span>
-              <select className="unique-sort-select" value={sort} onChange={(e) => setSort(e.target.value)}>
-                <option value="popular">Relevance / Popular</option>
-                <option value="low">Price : Low to High</option>
-                <option value="high">Price : High to Low</option>
-                <option value="rating">Customer Rating</option>
-              </select>
+              <div className="custom-dropdown">
+                <button
+                  type="button"
+                  className="custom-dropdown-btn"
+                  onClick={() => setIsSortOpen((prev) => !prev)}
+                >
+                  <span>
+                    {sort === 'popular' && 'Relevance / Popular'}
+                    {sort === 'low' && 'Price : Low to High'}
+                    {sort === 'high' && 'Price : High to Low'}
+                    {sort === 'rating' && 'Customer Rating'}
+                  </span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: isSortOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                {isSortOpen && (
+                  <div className="custom-dropdown-menu">
+                    {[
+                      { value: 'popular', label: 'Relevance / Popular' },
+                      { value: 'low', label: 'Price : Low to High' },
+                      { value: 'high', label: 'Price : High to Low' },
+                      { value: 'rating', label: 'Customer Rating' },
+                    ].map((opt) => (
+                      <div
+                        key={opt.value}
+                        className={`custom-dropdown-item ${sort === opt.value ? 'active' : ''}`}
+                        onClick={() => {
+                          setSort(opt.value);
+                          setIsSortOpen(false);
+                        }}
+                      >
+                        <span>{opt.label}</span>
+                        {sort === opt.value && <span style={{ color: 'var(--purple)', fontWeight: 900 }}>✓</span>}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
